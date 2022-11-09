@@ -54,6 +54,7 @@ class PathAlgorithm:
         if self.solution:
             print(self.solution)
             self.solution.clean()
+            print("SIN REPETICIONES: ")
             print(self.solution)
 
 
@@ -87,7 +88,6 @@ class PathAlgorithm:
             for _ in range(round(probability)):
                 bag.append(ind)
 
-        print(len(bag))
         # Randomizamos la posicion de los individuos en la bolsa
         shuffle(bag)
 
@@ -106,7 +106,6 @@ class PathAlgorithm:
             cut = randrange(1, len(mother.path))
         else:
             cut = randrange(1, len(father.path))
-        print(f" CUT: {cut}")
 
         # Cruce de los genes
         child_one_queens: list[int] = father.path[:cut] + mother.path[cut:]
@@ -123,10 +122,8 @@ class PathAlgorithm:
         if randrange(0, 100) < self.MUTATION_RATE:
             if randrange(0,2) == 1:
                 child_one.path[randrange(1, len(child_one.path)-1)] = randrange(1, 17)
-                print("MUTO HIJO 1")
             else: 
                 child_two.path[randrange(1, len(child_two.path)-1)] = randrange(1, 17)
-                print("MUTO HIJO 2")
         return child_one, child_two
 
 

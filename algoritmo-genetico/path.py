@@ -110,10 +110,10 @@ class Path:
     @classmethod
     def generate(cls):
         path = [0]
-        while len(path) < 17:
+        while len(path) <= 17:
             next_point = randrange(1, 17)
 
-            if len(path) == 16:
+            if len(path) == 17:
                 next_point = 17
 
             path.append(next_point)
