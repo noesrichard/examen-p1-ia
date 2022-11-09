@@ -9,7 +9,6 @@ class Node:
         self.coste = coste
         self.children: list[Node] = []
         self.h_value = h
-        
 
     def append_child(self,node):
         self.children.append(node)
@@ -64,6 +63,7 @@ class Node:
         return cost
 
     def h(self):
+        return self.depth()
         if self.depth() == 0:
             return self.g()
         return round(self.g() / self.depth())
