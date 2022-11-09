@@ -99,7 +99,7 @@ class Node:
                 blanks += "|"
             else:
                 blanks += " "
-        text += spaces +  str(self.name) + ' COSTE: ' + str(self.coste)
+        text += spaces +  str(self.name) + ' COSTE: ' + str(self.total_cost())
         text += '\n'
         text += spaces + '_____ '
         return text

@@ -9,7 +9,7 @@ class PathAlgorithm:
 
         # Generacion de la poblacion inicial
         self.population = self.__generate_population()
-        self.population.sort(key=lambda x: x.fitness_score, reverse=True)
+        self.population.sort(key=lambda x: x.fitness(), reverse=True)
         self.children = []
 
         self.solution = None
@@ -21,6 +21,7 @@ class PathAlgorithm:
 
             #self.population.append(Board([7, 3, 8, 2, 5, 1, 6, 4]))
 
+            self.population.sort(key= lambda x: x.fitness(), reverse=True)
             # Imprimir individuos en la poblacion
             print(f"\n************* ITERATION: {i} *************")
             self.__print_individuos(*self.population)
@@ -48,12 +49,18 @@ class PathAlgorithm:
 
             i += 1
 
+        print("\n\n************* SOLUCION **************")
+        self.solution = self.search_solution()
+        if self.solution:
+            print(self.solution)
+            self.solution.clean()
+            print(self.solution)
 
 
     def __generate_population(self) -> list[Path]:
         # Generamos la poblacion inicial 
         population = [Path.generate() for _ in range(self.MAX_POPULATION)]
-        population.sort(key=lambda x: x.fitness_score, reverse=True)
+        #population.sort(key=lambda x: x.fitness(), reverse=True)
         return population
 
     def __select_parents(self):
@@ -61,21 +68,20 @@ class PathAlgorithm:
         # Acumulacion total del puntaje de ajuste
         total_score = 0
         for ind in self.population:
-            total_score += abs(ind.fitness_score)
+            total_score += abs(ind.fitness())
 
-        # Almacenamos todos los individuos segun su probabilidad en una "bolsa negra"
-        total_prob = 0
+        self.population.sort(key= lambda x: x.fitness(), reverse=True)
+
         bag = []
-        for ind in self.population:
-            # Calculo de la probabilidad de cada individuo 
-            # Su probabilidad sera igual a su puntacion de ajuste sobre el ajuste total
+        total_ranks = 0
+        total_prob = 0
+        for i, ind in enumerate(self.population):
+            total_ranks += i+1
 
-            # Por lo que a mayor puntaje de ajuste mas probabilidad de ser elegido
-            # probability = abs(((total_score / ind.fitness_score )) / (total_score / 100))
-            ind.prob = (total_score / abs(ind.fitness_score) ) 
+        for i, ind in enumerate(self.population):
+            ind.prob = total_ranks / (i+1)
             total_prob += ind.prob
-            #for _ in range(round(probability)):
-                #bag.append(ind)
+
         for ind in self.population:
             probability = (ind.prob * 100) / total_prob
             for _ in range(round(probability)):
@@ -126,7 +132,7 @@ class PathAlgorithm:
 
     def __next_generation(self,child_one, child_two):
         # ordena la poblacion 
-        self.population.sort(key=lambda x: x.fitness_score)
+        self.population.sort(key=lambda x: x.fitness())
 
         # elimina los que tienen menor valor de ajuste
         del self.population[0]
@@ -138,10 +144,17 @@ class PathAlgorithm:
 
     def __is_solved(self):
         for ind in self.population:
-            if ind.fitness_score == 0:
+            if ind.fitness() == 0:
                 self.solution = ind
                 return True
         return False
+    
+    def search_solution(self):
+        for ind in self.population:
+            if ind.fitness() == 0:
+                return ind
+        return None
+ 
 
     def __print_individuos(self, *individuos: Path):
         for ind in individuos:
