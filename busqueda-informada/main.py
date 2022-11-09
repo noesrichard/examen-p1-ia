@@ -8,7 +8,6 @@ def generate_graph():
     H = 1
 
     FISEI = "FISEI", 525
-    MALL = "MALL", 0
     N1 = "N1", 740
     N2 = "N2", 370
     N3 = "N3", 620
@@ -25,28 +24,38 @@ def generate_graph():
     N14 = "N14", 465
     N15 = "N15", 245
     N16 = "N16", 160
+    MALL = "MALL", 0
     return [
         (FISEI[NAME], N1[NAME], 383, N1[H]),
         (FISEI[NAME], N2[NAME], 286, N2[H]),
         (FISEI[NAME], N4[NAME], 288, N4[H]),
         (FISEI[NAME], N5[NAME], 312, N5[H]),
+
         (N1[NAME], N3[NAME], 237, N3[H]),
+
         (N2[NAME], N6[NAME], 90, N6[H]),
         (N2[NAME], N7[NAME], 175, N7[H]),
+
         (N3[NAME], N8[NAME], 90, N8[H]),
         (N3[NAME], N4[NAME], 130, N4[H]),
+
         (N4[NAME], N3[NAME], 130, N3[H]),
         (N4[NAME], N9[NAME], 100, N9[H]),
         (N4[NAME], N5[NAME], 150, N5[H]),
+
         (N5[NAME], N4[NAME], 150, N4[H]),
         (N5[NAME], N10[NAME], 100, N10[H]),
         (N5[NAME], N6[NAME], 150, N6[H]),
+
         (N6[NAME], N5[NAME], 150, N5[H]),
         (N6[NAME], N11[NAME], 115, N11[H]),
         (N6[NAME], N7[NAME], 135, N7[H]),
+        (N6[NAME], N2[NAME], 90, N2[H]),
+
         (N7[NAME], N6[NAME], 135, N6[H]),
         (N7[NAME], N2[NAME], 175, N2[H]),
         (N7[NAME], N12[NAME], 130, N12[H]),
+
         (N8[NAME], N3[NAME], 90, N3[H]),
         (N8[NAME], N13[NAME], 220, N13[H]),
         (N8[NAME], N9[NAME], 125, N9[H]),
