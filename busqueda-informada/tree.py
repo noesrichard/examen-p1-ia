@@ -53,10 +53,6 @@ class Tree:
 
         self.solutions.sort(key= lambda x: x.f())
 
-        for f in self.solutions:
-            print("***********SOLUCION***********")
-            f.print_path()
-
         self.solutions[0].print_path()
 
 

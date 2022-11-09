@@ -63,10 +63,7 @@ class Node:
         return cost
 
     def h(self):
-        return self.depth()
-        if self.depth() == 0:
-            return self.g()
-        return round(self.g() / self.depth())
+        return self.h_value
 
     def f(self):
         return self.g() + self.h()
