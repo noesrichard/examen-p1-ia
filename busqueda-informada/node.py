@@ -17,10 +17,15 @@ class Node:
         if self.name == "MALL":
             return self
         for r in routes: 
+            # generamos los hijos que tienen como origen el nodo actual
             if r[ORIGEN] == self.name:
+
+                # si este nodo tiene padre y el destion es diferente del padre se genera un hijo
                 if self.parent and r[DESTINO] != self.parent.name:
                     child = Node(self, r[DESTINO], r[COSTE], r[H] )
                     self.children.append(child)
+
+                # en caso de que el nodo sea la raiz
                 elif self.parent is None: 
                     self.children.append(Node(self, r[DESTINO], r[COSTE], r[H]))
         return None

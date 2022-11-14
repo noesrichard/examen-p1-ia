@@ -11,28 +11,6 @@ class Node:
     def append_child(self,node):
         self.children.append(node)
 
-    def generate(self, routes):
-        # 0 = origen
-        # 1 = destino
-        # 2 = coste
-
-        if self.name == "MALL":
-            return self
-
-        for r in routes: 
-            if r[ORIGEN] == self.name:
-                if self.parent and r[DESTINO] != self.parent.name:
-                    self.children.append(Node(self, r[DESTINO], r[COSTE]))
-                elif r[DESTINO] == "MALL":
-                    return Node(self, r[DESTINO], r[COSTE])
-                elif self.parent is None: 
-                    self.children.append(Node(self, r[DESTINO], r[COSTE]))
-
-        if self.children: 
-            return self
-
-        self.print_node()
-
     def generate_children(self, routes):
          for r in routes: 
             if r[ORIGEN] == self.name:
@@ -44,12 +22,20 @@ class Node:
                     self.children.append(Node(self, r[DESTINO], r[COSTE]))
 
 
+    # genera todos los hijos de una misma profundiada
     def generate_by_depth(self, routes, depth):
+        # al inicio no hay solucion
         is_solution = None
+        # si el nombre del nodo es MALL entonces es una solucion
+        # y se retorna a si mismo
         if self.name == "MALL":
             return self
+
+        # si este nodo esta en la profundidad deseada genera sus hijos
         if self.depth() == depth:
             self.generate_children(routes)
+
+        # si el nodo tiene hijos ejecuta el metodo recursivamente
         if self.children:
             for child in self.children:
                 solution = child.generate_by_depth(routes, depth)

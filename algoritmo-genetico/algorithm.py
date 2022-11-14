@@ -50,10 +50,13 @@ class PathAlgorithm:
             i += 1
 
         print("\n\n************* SOLUCION **************")
+        # busca solucion
         self.solution = self.search_solution()
         if self.solution:
+            # imprime sin limpiar nodos repitidos y vueltas
             print(self.solution)
             self.solution.clean()
+            # imprime limpiando nodos repitidos y vueltas
             print("SIN REPETICIONES: ")
             print(self.solution)
 
@@ -76,6 +79,7 @@ class PathAlgorithm:
         bag = []
         total_ranks = 0
         total_prob = 0
+
         for i, ind in enumerate(self.population):
             total_ranks += i+1
 
